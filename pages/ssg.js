@@ -1,18 +1,29 @@
 import Head from "next/head";
-import Link from "next/link";
-//SSR
-//서버가 데이터를 가져와서 그린다.
-//getServerSideProps 함수사용
-//서버에서 데이터를 가져와서 페이지에 props 해준다.
+import { useEffect, useState } from "react";
 
-export function getServerSideProps() {
+//SSG
+// 정적인 데이터를 가져와서 미리 그려둔다.
+// dev로 실행할 경우 SSG는 제대로 동작하지 않고 getServerSideProps 처럼 동작한다.
+//(dev는 개발환경으로 SSG는 개발환경에서 작동하지 않기 때문)
+// 제대로 보려면 build 후 'start'명령어로 실행시켜야한다.
+
+// 즉, build 할때 페이지를 만들어 버린다는 말.
+// ex)블로그 같이 정적인 페이지라고 할때 새로 배포하기 전까지 이전데이터가 유지되어 이전데이터 화면을 보여주는것.
+
+// SSG는 정적인 페이지에 한해서 이미 만들어진 페이지를 만들어 버리기때문에 서버 부하가 적다.
+
+//<사용 함수>
+// getStaticProps : 미리 정적인 화면을 그려둔다.
+// getStaticPaths : 어떤 path를 써야할지 알기위해 사용한다. ex) [ooo].js 와 같이 어떤 path가 올지 모를때 사용한다.
+// => getStaticPaths를 쓸때는 꼭 getStaticProps를 같이 써야한다.
+
+export function getStaticProps() {
   console.log("server");
   return {
     props: { time: new Date().toISOString() },
   };
 }
-
-export default function Home({ time }) {
+export default function SSG({ time }) {
   return (
     <div className="container">
       <Head>
@@ -22,21 +33,6 @@ export default function Home({ time }) {
 
       <main>
         <h1 className="title">{time}</h1>
-        <h1>
-          <Link href="/csr">
-            <a>CSR</a>
-          </Link>
-        </h1>
-        <h1>
-          <Link href="/ssg">
-            <a>SSG</a>
-          </Link>
-        </h1>
-        <h1>
-          <Link href="/isr">
-            <a>ISR</a>
-          </Link>
-        </h1>
       </main>
 
       <footer>

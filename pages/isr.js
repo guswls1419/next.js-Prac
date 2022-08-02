@@ -1,18 +1,21 @@
 import Head from "next/head";
-import Link from "next/link";
-//SSR
-//서버가 데이터를 가져와서 그린다.
-//getServerSideProps 함수사용
-//서버에서 데이터를 가져와서 페이지에 props 해준다.
+import { useEffect, useState } from "react";
+// ISR
+// 증분 정적 사이트를 재생성한다. => 특정주기로 데이터를 가져와서 다시 그려둔다.
+// SSR 과 같이 getStaticProps를 사용하고 revalidate라는 값을 리턴한다.
+// 즉, revalidate 값을 getStaticProps에서 리턴하면
+// revalidate(초 단위) 의 초 만큼 다시 데이터를 가져온다.
+// SSR과 SSG의 장점을 적절하게 사용할수 있다.
 
-export function getServerSideProps() {
+export function getStaticProps() {
   console.log("server");
   return {
     props: { time: new Date().toISOString() },
+    revalidate: 1,
   };
 }
 
-export default function Home({ time }) {
+export default function ISR({ time }) {
   return (
     <div className="container">
       <Head>
@@ -22,21 +25,6 @@ export default function Home({ time }) {
 
       <main>
         <h1 className="title">{time}</h1>
-        <h1>
-          <Link href="/csr">
-            <a>CSR</a>
-          </Link>
-        </h1>
-        <h1>
-          <Link href="/ssg">
-            <a>SSG</a>
-          </Link>
-        </h1>
-        <h1>
-          <Link href="/isr">
-            <a>ISR</a>
-          </Link>
-        </h1>
       </main>
 
       <footer>

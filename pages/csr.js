@@ -1,18 +1,16 @@
 import Head from "next/head";
-import Link from "next/link";
-//SSR
-//서버가 데이터를 가져와서 그린다.
-//getServerSideProps 함수사용
-//서버에서 데이터를 가져와서 페이지에 props 해준다.
+import { useEffect, useState } from "react";
+//CSR
+//클라이언트가 데이터를 가져와서 그리는 방식
+// 기존 react 구현방식
 
-export function getServerSideProps() {
-  console.log("server");
-  return {
-    props: { time: new Date().toISOString() },
-  };
-}
+export default function CSR() {
+  const [time, setTime] = useState();
 
-export default function Home({ time }) {
+  useEffect(() => {
+    console.log("client");
+    setTime(new Date().toISOString());
+  }, []);
   return (
     <div className="container">
       <Head>
@@ -22,21 +20,6 @@ export default function Home({ time }) {
 
       <main>
         <h1 className="title">{time}</h1>
-        <h1>
-          <Link href="/csr">
-            <a>CSR</a>
-          </Link>
-        </h1>
-        <h1>
-          <Link href="/ssg">
-            <a>SSG</a>
-          </Link>
-        </h1>
-        <h1>
-          <Link href="/isr">
-            <a>ISR</a>
-          </Link>
-        </h1>
       </main>
 
       <footer>
