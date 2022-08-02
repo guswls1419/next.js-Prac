@@ -1,1 +1,1 @@
-# next JS -Prac
+# next.js -Prac
