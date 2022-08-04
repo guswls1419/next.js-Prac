@@ -1,26 +1,26 @@
-import Layout from "../components/Layout";
-import SubLayout from "../components/SuLayout";
+import Layout from '../components/Layout'
+import SubLayout from '../components/SuLayout'
 
 export function getStaticProps() {
-  console.log("server");
+  console.log('server')
   return {
     props: { time: new Date().toISOString() },
     revalidate: 1,
-  };
+  }
 }
 
 export default function ISR({ time }) {
   return (
     <>
       <h1 className="title">
-        <span style={{ fontWeight: "bold", fontSize: "30px" }}>예시👉 </span>
+        <span style={{ fontWeight: 'bold', fontSize: '30px' }}>예시👉 </span>
         {time}
       </h1>
       <div>(새로고침 하면서 client, server 양쪽 console확인)</div>
       <br />
       <br />
       <div>
-        <span style={{ fontWeight: "bold", fontSize: "40px" }}>ISR</span>
+        <span style={{ fontWeight: 'bold', fontSize: '40px' }}>ISR</span>
         <br />
         <br />
         증분 정적 사이트를 재생성한다. ➡ 특정주기로 데이터를 가져와서 다시
@@ -37,12 +37,12 @@ export default function ISR({ time }) {
         SSR과 SSG의 장점을 적절하게 사용할수 있다.
       </div>
     </>
-  );
+  )
 }
 ISR.getLayout = function getLayout(page) {
   return (
     <Layout>
       <SubLayout>{page}</SubLayout>
     </Layout>
-  );
-};
+  )
+}

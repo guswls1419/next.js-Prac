@@ -1,25 +1,25 @@
-import Layout from "../components/Layout";
-import SubLayout from "../components/SuLayout";
+import Layout from '../components/Layout'
+import SubLayout from '../components/SuLayout'
 
 export function getStaticProps() {
-  console.log("server");
+  console.log('server')
   return {
     props: { time: new Date().toISOString() },
-  };
+  }
 }
 
 export default function SSG({ time }) {
   return (
     <>
       <h1 className="title">
-        <span style={{ fontWeight: "bold", fontSize: "30px" }}>예시👉 </span>
+        <span style={{ fontWeight: 'bold', fontSize: '30px' }}>예시👉 </span>
         {time}
       </h1>
       <div>(새로고침 하면서 client, server 양쪽 console확인)</div>
       <br />
       <br />
       <div>
-        <span style={{ fontWeight: "bold", fontSize: "40px" }}>SSG</span>
+        <span style={{ fontWeight: 'bold', fontSize: '40px' }}>SSG</span>
         <br />
         <br />
         SSG 정적인 데이터를 가져와서 미리 그려둔다. <br />
@@ -45,12 +45,12 @@ export default function SSG({ time }) {
         <br /> *getStaticPaths를 쓸때는 꼭 getStaticProps를 같이 써야한다.
       </div>
     </>
-  );
+  )
 }
 SSG.getLayout = function getLayout(page) {
   return (
     <Layout>
       <SubLayout>{page}</SubLayout>
     </Layout>
-  );
-};
+  )
+}
